@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+        .login_main {
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login_info {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .login_textbox {
+            width: 100%;
+            height: 30px;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login_btn {
+            width: 100%;
+            height: 40px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login_btn:hover {
+            background-color: #0056b3;
+        }
+        p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h2 style="text-align: center">
+    欢迎使用局域网通讯系统AIM
+</h2>
+
+<form class="login_main" method="post" th:action="@{/logincheck}">
+    <p class="login_info">登录</p>
+    <input class="login_textbox" type="text" name="username" placeholder="用户名">
+    <input class="login_textbox" type="password" name="password" placeholder="密码">
+    <button class="login_btn" type="submit">登录</button>
+    <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+</form>
+
+</body>
+</html>

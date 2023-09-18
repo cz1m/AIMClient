@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Window</title>
+
+    <style>
+        /* 添加动画效果 */
+        .message {
+            animation: fade-in 0.5s ease-in-out;
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+
+
+        /* 调整样式 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(22, 66, 212);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .refresh-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            /* 添加其他样式，如背景颜色、字体大小等 */
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/main(msg=${sender})}">返回</a>
+    <form th:action="@{/chatting}" method="post">
+        <input type="hidden" name="getter" th:value="${getter}" />
+        <input type="hidden" name="sender" th:value="${sender}" />
+        <button type="submit"  class="refresh-button">读取</button>
+    </form>
+    <div th:each="message : ${messages}" class="message" style="margin: 10px; background-color: #f2f2f2; border-radius: 10px; padding: 10px;">
+        <p th:text="${message.sender}" style="color: blue; font-size: 16px;"></p>
+        <p th:text="${message.content}"></p>
+        <p th:text="${message.time}"></p>
+    </div>
+
+    <form th:action="@{/chatting}" method="post">
+        <input type="hidden" name="getter" th:value="${getter}" />
+        <input type="hidden" name="sender" th:value="${sender}" />
+        <input type="text" name="content" />
+        <button type="submit">发送</button>
+    </form>
+    <form th:action="@{/broadcast}" method="post">
+        <input type="hidden" name="getter" th:value="${getter}" />
+        <input type="hidden" name="sender" th:value="${sender}" />
+        <input type="text" name="content" />
+        <button type="submit">广播</button>
+    </form>
+</div>
+
+</body>
+</html>

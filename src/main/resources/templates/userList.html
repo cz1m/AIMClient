@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f2f2f2;
+    }
+
+    table {
+        width: 80%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #333;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>流水号</th>
+        <th>用户名</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user, row : ${userList}">
+        <td th:text="${row.index + 1}"></td>
+        <td th:text="${user}"></td>
+        <td>
+            <form th:action="@{/sendmessage}" method="post">
+                <input type="hidden" name="sender" th:value="${msg}" />
+                <input type="hidden" name="getter" th:value="${user}" />
+                <button type="submit">发送消息</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
